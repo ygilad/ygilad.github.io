@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Placeholder Inserter</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .placeholder-btn { margin: 5px 0; padding: 10px; border: 1px solid #ccc; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h3>Select a Placeholder</h3>
+  <div id="placeholder-list"></div>
+
+  <script>
+    const placeholders = [
+      { id: "customer_name", label: "Customer Name" },
+      { id: "invoice_date", label: "Invoice Date" },
+      { id: "amount_due", label: "Amount Due" }
+    ];
+
+    function insertText(text) {
+      Office.onReady(() => {
+        Word.run(async (context) => {
+          const range = context.document.getSelection();
+          range.insertText(text, Word.InsertLocation.replace);
+          await context.sync();
+        });
+      });
+    }
+
+    const container = document.getElementById("placeholder-list");
+    placeholders.forEach(placeholder => {
+      const btn = document.createElement("div");
+      btn.className = "placeholder-btn";
+      btn.textContent = `{{${placeholder.id}}} – ${placeholder.label}`;
+      btn.onclick = () => insertText(`{{${placeholder.id}}}`);
+      container.appendChild(btn);
+    });
+  </script>
+</body>
+</html>
