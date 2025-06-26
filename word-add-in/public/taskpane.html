@@ -32,13 +32,16 @@
       });
     }
 
-    const container = document.getElementById("placeholder-list");
-    placeholders.forEach(placeholder => {
-      const btn = document.createElement("div");
-      btn.className = "placeholder-btn";
-      btn.textContent = `{{${placeholder.id}}} – ${placeholder.label}`;
-      btn.onclick = () => insertText(`{{${placeholder.id}}}`);
-      container.appendChild(btn);
+    Office.onReady(() => {
+      console.log("office ready");
+      const container = document.getElementById("placeholder-list");
+      placeholders.forEach(placeholder => {
+        const btn = document.createElement("div");
+        btn.className = "placeholder-btn";
+        btn.textContent = `{{${placeholder.id}}} – ${placeholder.label}`;
+        btn.onclick = () => insertText(`{{${placeholder.id}}}`);
+        container.appendChild(btn);
+      });
     });
   </script>
 </body>
