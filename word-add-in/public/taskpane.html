@@ -20,8 +20,11 @@
     ];
 
     function insertText(text) {
+      console.log("Button '"+text+"': pressed");
       Office.onReady(() => {
+        console.log("Button '"+text+"': ready");
         Word.run(async (context) => {
+          console.log("Button '"+text+"': run");
           const range = context.document.getSelection();
           range.insertText(text, Word.InsertLocation.replace);
           await context.sync();
